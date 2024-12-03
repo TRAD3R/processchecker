@@ -1,6 +1,7 @@
 package processchecker
 
 import (
+	"errors"
 	"fmt"
 	"log/slog"
 	"os"
@@ -21,7 +22,11 @@ func Run(pidFile string) error {
 		}
 		pid, err := strconv.Atoi(string(data))
 		if err != nil {
-			return fmt.Errorf("Invalid PID in PID file: %s\n", err)
+			if errR := os.Remove(pidFile); errR != nil {
+				err = errors.Join(err, fmt.Errorf("failed to remove PID file %s: %w", pidFile, errR))
+			}
+
+			return fmt.Errorf("Invalid PID in PID file: %w", err)
 		}
 
 		// Проверка, активен ли процесс с этим PID
