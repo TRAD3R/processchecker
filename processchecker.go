@@ -18,7 +18,7 @@ func Run(pidFile string) error {
 	if _, err := os.Stat(pidFile); err == nil {
 		data, err := os.ReadFile(pidFile)
 		if err != nil {
-			return fmt.Errorf("Failed to read PID file: %s\n", err)
+			return fmt.Errorf("failed to read PID file: %w", err)
 		}
 		pid, err := strconv.Atoi(string(data))
 		if err != nil {
@@ -26,15 +26,15 @@ func Run(pidFile string) error {
 				err = errors.Join(err, fmt.Errorf("failed to remove PID file %s: %w", pidFile, errR))
 			}
 
-			return fmt.Errorf("Invalid PID in PID file: %w", err)
+			return fmt.Errorf("iInvalid PID in PID file: %w", err)
 		}
 
 		// Проверка, активен ли процесс с этим PID
 		err = syscall.Kill(pid, 0)
 		if err == nil {
-			return fmt.Errorf("Service already running with PID %d", pid)
+			return fmt.Errorf("service already running with PID %d", pid)
 		} else if err != syscall.ESRCH {
-			return fmt.Errorf("Failed to check PID %d: %s\n", pid, err)
+			return fmt.Errorf("failed to check PID %d: %w", pid, err)
 		}
 	}
 
