@@ -38,7 +38,7 @@ func Run(pidFile string) error {
 	pid := os.Getpid()
 	err := os.WriteFile(pidFile, []byte(strconv.Itoa(pid)), 0644)
 	if err != nil {
-		return fmt.Errorf("Failed to write %d in PID file: %v\n", pid, err)
+		return fmt.Errorf("Failed to write %d in PID file: %w\n", pid, err)
 	}
 
 	return nil
