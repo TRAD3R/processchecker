@@ -19,6 +19,7 @@ const (
 )
 
 func checkProcess(pidFile string) (string, error) {
+	// Get temp file path
 	filepath := path.Join(os.TempDir(), pidFile)
 
 	// Проверка, активен ли процесс с этим PID
