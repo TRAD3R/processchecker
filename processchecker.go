@@ -17,7 +17,7 @@ func Run(pidFile string) error {
 		return err
 	}
 
-	// Шаг 2: Запись текущего PID в PID файл
+	// Запись текущего PID в PID файл
 	pid := os.Getpid()
 	err = os.WriteFile(filepath, []byte(strconv.Itoa(pid)), 0644)
 	if err != nil {

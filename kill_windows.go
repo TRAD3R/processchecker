@@ -23,7 +23,7 @@ func checkProcess(pidFile string) (string, error) {
 
 	// Проверка, активен ли процесс с этим PID
 	if _, err := os.Stat(filepath); err != nil {
-		return "", fmt.Errorf("cannot find process \"%s\"", filepath)
+		return filepath, nil
 	}
 
 	data, err := os.ReadFile(filepath)

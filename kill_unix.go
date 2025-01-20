@@ -10,15 +10,15 @@ import (
 
 func checkProcess(pidFile string) (string, error) {
 	filepath := path.Join("/tmp", pidFile)
-	// Проверка, активен ли процесс с этим PID
 	if _, err := os.Stat(filepath); err != nil {
-		return "", fmt.Errorf("cannot find process \"%s\"", filepath)
+		return filepath, nil
 	}
 
 	data, err := os.ReadFile(filepath)
 	if err != nil {
 		return "", fmt.Errorf("failed to read PID file: %w", err)
 	}
+
 	pid, err := strconv.Atoi(string(data))
 	if err != nil {
 		if errR := os.Remove(filepath); errR != nil {
@@ -28,6 +28,7 @@ func checkProcess(pidFile string) (string, error) {
 		return "", fmt.Errorf("iInvalid PID in PID file: %w", err)
 	}
 
+	// Проверка, активен ли процесс с этим PID
 	err = syscall.Kill(pid, 0)
 	if err == nil {
 		return "", fmt.Errorf("service already running with PID %d", pid)
