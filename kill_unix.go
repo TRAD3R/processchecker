@@ -7,7 +7,9 @@ import (
 	"path"
 	"syscall"
 
+	"errors"
 	"os"
+	"strconv"
 )
 
 func checkProcess(pidFile string) (string, error) {
