@@ -3,14 +3,9 @@ package processchecker
 import (
 	"errors"
 	"fmt"
-	"log/slog"
 	"os"
 	"strconv"
 )
-
-type Logger struct {
-	*slog.Logger
-}
 
 func Run(pidFile string) error {
 	// Шаг 1: Проверка существования PID файла
