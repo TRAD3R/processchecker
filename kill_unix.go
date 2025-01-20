@@ -8,7 +8,7 @@ import (
 )
 
 func checkProcess(pid int) error {
-	err = syscall.Kill(pid, 0)
+	err := syscall.Kill(pid, 0)
 	if err == nil {
 		return fmt.Errorf("service already running with PID %d", pid)
 	}
