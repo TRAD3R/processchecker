@@ -6,7 +6,6 @@ import (
 	"log/slog"
 	"os"
 	"strconv"
-	"syscall"
 )
 
 type Logger struct {
@@ -30,11 +29,8 @@ func Run(pidFile string) error {
 		}
 
 		// Проверка, активен ли процесс с этим PID
-		err = syscall.Kill(pid, 0)
-		if err == nil {
-			return fmt.Errorf("service already running with PID %d", pid)
-		} else if err != syscall.ESRCH {
-			return fmt.Errorf("failed to check PID %d: %w", pid, err)
+		if err := checkProcess(pid); err != nil {
+			return err
 		}
 	}
 
