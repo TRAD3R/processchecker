@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path"
 	"strconv"
 	"syscall"
 
@@ -20,7 +19,7 @@ const (
 
 func checkProcess(pidFile string) (string, error) {
 	// Get temp file path
-	filepath := path.Join(os.TempDir(), pidFile)
+	filepath := fmt.Sprintf("%s\\%s", os.TempDir(), pidFile)
 
 	// Проверка, активен ли процесс с этим PID
 	if _, err := os.Stat(filepath); err != nil {
