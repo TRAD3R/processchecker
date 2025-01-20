@@ -13,7 +13,7 @@ type Logger struct {
 }
 
 func Run(pidFile string) error {
-	// Шаг 1: Проверка существования PID файла
+	// Проверка существования PID файла
 	if _, err := os.Stat(pidFile); err == nil {
 		data, err := os.ReadFile(pidFile)
 		if err != nil {
@@ -34,7 +34,7 @@ func Run(pidFile string) error {
 		}
 	}
 
-	// Шаг 2: Запись текущего PID в PID файл
+	// Запись текущего PID в PID файл
 	pid := os.Getpid()
 	err := os.WriteFile(pidFile, []byte(strconv.Itoa(pid)), 0644)
 	if err != nil {
