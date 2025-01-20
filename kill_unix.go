@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"path"
 	"syscall"
+
+	"os"
 )
 
 func checkProcess(pidFile string) (string, error) {

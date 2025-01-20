@@ -2,14 +2,9 @@ package processchecker
 
 import (
 	"fmt"
-	"log/slog"
 	"os"
 	"strconv"
 )
-
-type Logger struct {
-	*slog.Logger
-}
 
 func Run(pidFile string) error {
 	filepath, err := checkProcess(pidFile)
