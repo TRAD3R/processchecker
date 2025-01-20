@@ -19,7 +19,8 @@ const (
 )
 
 func checkProcess(pidFile string) (string, error) {
-	filepath := path.Join("%TMP%", pidFile)
+	filepath := path.Join(os.TempDir(), pidFile)
+
 	// Проверка, активен ли процесс с этим PID
 	if _, err := os.Stat(filepath); err != nil {
 		return "", fmt.Errorf("cannot find process \"%s\"", filepath)
